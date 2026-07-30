@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#17211c">
   <meta name="description" content="SpurenAtlas – historische Wege, Schlachtfelder und Landschaften.">
-  <title>SpurenAtlas · Beta 2</title>
+  <title>SpurenAtlas · Beta 3.1</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
@@ -16,7 +16,7 @@
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">⌖</span>
       <div>
-        <h1>SpurenAtlas <span>Beta</span></h1>
+        <h1>SpurenAtlas <span>Beta 3.1</span></h1>
         <p>Historische Wege, Orte und Landschaften</p>
       </div>
     </div>
@@ -38,6 +38,12 @@
         <button id="closePanel" class="icon-button" type="button" aria-label="Ebenen schließen">×</button>
       </div>
 
+
+      <div class="panel-section first-section">
+        <label class="search-label" for="entrySearch">Suche</label>
+        <input id="entrySearch" class="search-input" type="search" placeholder="Ort, Epoche oder Kategorie …" autocomplete="off">
+      </div>
+
       <div class="panel-section">
         <h3>Kategorien</h3>
         <label><input class="category-filter" type="checkbox" value="Schlachtfeld" checked> <span class="swatch battle"></span>Schlachtfelder</label>
@@ -57,8 +63,18 @@
       </div>
 
       <div class="panel-section">
+        <h3>Epoche</h3>
+        <select id="epochFilter">
+          <option value="all">Alle Epochen</option>
+        </select>
+      </div>
+
+      <div class="panel-section">
         <div class="section-title-row">
-          <h3>Einzelne Einträge</h3>
+          <div>
+            <h3>Einzelne Einträge</h3>
+            <div id="entryCount" class="entry-count"></div>
+          </div>
           <button id="toggleAll" class="text-button" type="button">Alle aus</button>
         </div>
         <div id="entryList"></div>
@@ -76,7 +92,7 @@
 
   <noscript>SpurenAtlas benötigt JavaScript.</noscript>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="data.js"></script>
-  <script src="app.js?v=2"></script>
+  <script src="data.js?v=31"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

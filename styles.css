@@ -71,3 +71,24 @@ main { position: relative; height: calc(100% - 78px); }
   .brand p { max-width: 43vw; }
   .button { padding: 0 10px; }
 }
+
+
+/* Beta 3 */
+.first-section { border-top: 0; margin-top: 8px; padding-top: 0; }
+.search-label { color: var(--gold); font-size: 12px !important; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.search-input {
+  width: 100%; margin-top: 5px; border: 1px solid var(--line); border-radius: 11px;
+  padding: 11px 12px; color: var(--text); background: var(--bg); outline: none;
+}
+.search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(215,182,111,.13); }
+.entry {
+  display: grid; grid-template-columns: minmax(0, 1fr) 38px; align-items: center; gap: 8px;
+}
+.entry label { min-width: 0; }
+.entry-focus {
+  width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--panel-2); color: var(--gold); cursor: pointer; font-size: 18px;
+}
+.entry-focus:active { transform: scale(.96); }
+.entry.is-search-hidden { display: none; }
+.entry-count { margin-top: 3px; color: var(--muted); font-size: 11px; }

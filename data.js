@@ -35,19 +35,70 @@ window.SPURENATLAS_DATA = [
     coords: [[50.2320,10.0470],[50.2450,10.0830],[50.2300,10.1190],[50.2030,10.1210],[50.1840,10.0920],[50.1870,10.0540],[50.2070,10.0340]]
   },
   {
-    id: "via-regia-west", kind: "line", category: "Handelsstraße", name: "Via Regia – Eisenach / Gotha / Erfurt / Weimar", year: "Mittelalter–Neuzeit", epoch: "Fernhandel", confidence: 2,
-    color: "#cf8b2a", note: "Großer Ost-West-Handelskorridor. Die konkrete Trasse konnte örtlich und zeitlich wechseln.",
-    coords: [[50.974,10.324],[50.949,10.701],[50.979,11.033],[50.980,11.324]]
+    id: "via-regia-west", kind: "line", category: "Handelsstraße",
+    name: "Via Regia – Eisenach / Gotha / Erfurt",
+    year: "Mittelalter–Neuzeit", epoch: "Fernhandel", confidence: 2,
+    color: "#cf8b2a",
+    note: "Trassennahe Arbeitsrekonstruktion über Eisenach, Sättelstädt, Mechterstädt, Gotha und Erfurt. Vormoderne Parallel- und Ausweichwege sind möglich.",
+    coords: [
+      [50.9746,10.3240],[50.9785,10.3490],[50.9700,10.3740],
+      [50.9570,10.3920],[50.9480,10.4300],[50.9360,10.4810],
+      [50.9420,10.5230],[50.9280,10.5520],[50.9250,10.5840],
+      [50.9320,10.6200],[50.9430,10.6650],[50.9490,10.7090],
+      [50.9470,10.7500],[50.9460,10.7890],[50.9490,10.8350],
+      [50.9490,10.8860],[50.9540,10.9060],[50.9580,10.9440],
+      [50.9650,10.9750],[50.9787,11.0328]
+    ]
   },
   {
-    id: "via-regia-east", kind: "line", category: "Handelsstraße", name: "Via Regia – Erfurt / Jena / Naumburg / Leipzig", year: "Mittelalter–Neuzeit", epoch: "Fernhandel", confidence: 2,
-    color: "#cf8b2a", note: "Historischer Ost-West-Korridor; noch keine abschnittsweise Feinrekonstruktion.",
-    coords: [[50.979,11.033],[50.980,11.324],[50.927,11.586],[51.150,11.809],[51.340,12.373]]
+    id: "via-regia-east", kind: "line", category: "Handelsstraße",
+    name: "Via Regia – Erfurt / Buttelstedt / Eckartsberga / Naumburg / Leipzig",
+    year: "Mittelalter–Neuzeit", epoch: "Fernhandel", confidence: 2,
+    color: "#cf8b2a",
+    note: "Trassennahe Arbeitsrekonstruktion der historischen Hauptverbindung. Zwischen Erfurt und Nermsdorf folgt sie den überlieferten Orts- und Flurabschnitten; weiter über Eckartsberga und Naumburg nach Leipzig.",
+    coords: [
+      [50.9787,11.0328],[50.9865,11.0580],[50.9930,11.0800],
+      [50.9995,11.1015],[51.0075,11.1260],[51.0110,11.1470],
+      [51.0180,11.1640],[51.0250,11.1810],[51.0320,11.1990],
+      [51.0390,11.2180],[51.0470,11.2380],[51.0550,11.2580],
+      [51.0620,11.2800],[51.0680,11.3050],[51.0755,11.3440],
+      [51.0830,11.3820],[51.0910,11.4090],[51.0990,11.4380],
+      [51.1080,11.4800],[51.1160,11.5200],[51.1230,11.5600],
+      [51.1110,11.5790],[51.0990,11.5880],[51.1090,11.6250],
+      [51.1220,11.6730],[51.1340,11.7220],[51.1510,11.7810],
+      [51.1520,11.8090],[51.1650,11.8530],[51.1840,11.9080],
+      [51.2010,11.9680],[51.2190,12.0250],[51.2390,12.0910],
+      [51.2560,12.1420],[51.2780,12.2050],[51.3000,12.2670],
+      [51.3200,12.3230],[51.3397,12.3731]
+    ]
   },
   {
-    id: "nuernberger-geleit", kind: "line", category: "Handelsstraße", name: "Nürnberger Geleitstraße – Erfurt bis Nürnberg", year: "Mittelalter–Neuzeit", epoch: "Fernhandel", confidence: 2,
-    color: "#9c63c7", note: "Vereinfachter Nord-Süd-Korridor. Historisch existierten abschnittsweise verschiedene Varianten.",
-    coords: [[50.979,11.033],[50.840,10.946],[50.608,10.690],[50.366,10.906],[49.899,10.903],[49.452,11.077]]
+    id: "nuernberger-geleit", kind: "line", category: "Handelsstraße",
+    name: "Nürnberger Geleitstraße – Erfurt / Ilmenau / Schleusingen / Coburg / Nürnberg",
+    year: "Mittelalter–Neuzeit", epoch: "Fernhandel", confidence: 2,
+    color: "#9c63c7",
+    note: "Trassennahe Arbeitsrekonstruktion über die Wald- bzw. Frauenstraße und die Hohe Straße. Im Thüringer Wald folgt sie dem überlieferten Korridor über Ilmenau, Manebach, Frauenwald, Schleusingen und Eisfeld; südlich von Coburg ist die Fortsetzung vorläufig.",
+    coords: [
+      [50.9787,11.0328],[50.9540,11.0120],[50.9280,10.9890],
+      [50.8990,10.9700],[50.8680,10.9550],[50.8349,10.9460],
+      [50.8070,10.9270],[50.7780,10.8990],[50.7520,10.8910],
+      [50.7240,10.8890],[50.7000,10.9040],[50.6832,10.9186],
+      [50.6790,10.8890],[50.6730,10.8660],[50.6610,10.8440],
+      [50.6460,10.8280],[50.6260,10.8340],[50.6080,10.8510],
+      [50.5940,10.8600],[50.5830,10.8550],[50.5680,10.8350],
+      [50.5570,10.8060],[50.5450,10.7770],[50.5380,10.7470],
+      [50.5290,10.7420],[50.5100,10.7560],[50.4920,10.7910],
+      [50.4740,10.8260],[50.4560,10.8650],[50.4260,10.9070],
+      [50.3950,10.9090],[50.3600,10.9110],[50.3210,10.9070],
+      [50.2910,10.9300],[50.2580,10.9640],[50.2290,11.0050],
+      [50.1970,11.0450],[50.1610,11.0660],[50.1450,11.0630],
+      [50.1190,11.0310],[50.1020,11.0010],[50.0660,10.9620],
+      [50.0250,10.9310],[49.9760,10.9080],[49.9260,10.8940],
+      [49.8917,10.8860],[49.8490,10.9090],[49.8060,10.9530],
+      [49.7620,11.0120],[49.7190,11.0590],[49.6760,11.0460],
+      [49.6320,11.0260],[49.5890,11.0110],[49.5480,11.0260],
+      [49.5060,11.0530],[49.4521,11.0767]
+    ]
   },
   {
     id: "rennsteig", kind: "line", category: "Altweg", name: "Rennsteig – Höhen-, Grenz- und Verkehrsweg", year: "Mittelalter–Neuzeit", epoch: "Altweg", confidence: 3,
