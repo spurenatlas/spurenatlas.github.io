@@ -19,6 +19,7 @@
   let gpsMarker = null;
   let gpsAccuracy = null;
   let watchId = null;
+  let centerOnNextFix = false;
   let allEnabled = true;
 
   const statusBar = document.getElementById("statusBar");
@@ -135,12 +136,18 @@
       gpsMarker.setLatLng(point);
       gpsAccuracy.setLatLng(point).setRadius(accuracy);
     }
-    map.setView(point, Math.max(map.getZoom(), 14));
+    if (centerOnNextFix) {
+      map.setView(point, Math.max(map.getZoom(), 14));
+      centerOnNextFix = false;
+    }
+
     locateButton.classList.add("is-active");
+    locateButton.textContent = "◎ Zentrieren";
+
     const nearest = nearestVisible(latitude, longitude);
     statusBar.textContent = nearest
-      ? `GPS ±${Math.round(accuracy)} m · nächste aktive Fläche: ${nearest.item.name} · ca. ${nearest.distance.toFixed(1)} km zum Mittelpunkt`
-      : `GPS ±${Math.round(accuracy)} m`;
+      ? `GPS ±${Math.round(accuracy)} m · ${nearest.item.name}: ca. ${nearest.distance.toFixed(1)} km · Karte frei verschiebbar`
+      : `GPS ±${Math.round(accuracy)} m · Karte frei verschiebbar`;
   }
 
   function locationError(error) {
@@ -161,13 +168,23 @@
       statusBar.textContent = "Dieser Browser unterstützt keine Standortabfrage.";
       return;
     }
-    statusBar.textContent = "Standortfreigabe wird angefragt …";
-    if (watchId !== null) navigator.geolocation.clearWatch(watchId);
-    watchId = navigator.geolocation.watchPosition(updateLocation, locationError, {
-      enableHighAccuracy: true,
-      maximumAge: 3000,
-      timeout: 18000
-    });
+    centerOnNextFix = true;
+
+    if (watchId === null) {
+      statusBar.textContent = "Standortfreigabe wird angefragt …";
+      watchId = navigator.geolocation.watchPosition(updateLocation, locationError, {
+        enableHighAccuracy: true,
+        maximumAge: 3000,
+        timeout: 18000
+      });
+    } else if (gpsMarker) {
+      map.setView(gpsMarker.getLatLng(), Math.max(map.getZoom(), 14));
+      centerOnNextFix = false;
+    }
+  });
+
+  map.on("dragstart zoomstart", () => {
+    centerOnNextFix = false;
   });
 
   if ("serviceWorker" in navigator) {
