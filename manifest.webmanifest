@@ -1,0 +1,13 @@
+{
+  "name": "SpurenAtlas",
+  "short_name": "SpurenAtlas",
+  "description": "Historische Wege, Orte und Landschaften",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#101713",
+  "theme_color": "#17211c",
+  "icons": [
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}

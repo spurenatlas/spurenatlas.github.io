@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17211c">
+  <meta name="description" content="SpurenAtlas – historische Wege, Schlachtfelder und Landschaften.">
+  <title>SpurenAtlas · Beta</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">⌖</span>
+      <div>
+        <h1>SpurenAtlas <span>Beta</span></h1>
+        <p>Historische Wege, Orte und Landschaften</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="locateButton" class="button primary" type="button">◎ GPS</button>
+      <button id="layersButton" class="button" type="button">☰ Ebenen</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="map" aria-label="Historische Karte"></div>
+
+    <section id="layersPanel" class="panel" aria-label="Karteneinstellungen" aria-hidden="true">
+      <div class="panel-head">
+        <div>
+          <h2>Ebenen</h2>
+          <p>Blende nur ein, was du gerade brauchst.</p>
+        </div>
+        <button id="closePanel" class="icon-button" type="button" aria-label="Ebenen schließen">×</button>
+      </div>
+
+      <div class="panel-section">
+        <h3>Kategorien</h3>
+        <label><input class="category-filter" type="checkbox" value="Schlachtfeld" checked> <span class="swatch battle"></span>Schlachtfelder</label>
+        <label><input class="category-filter" type="checkbox" value="Lager" checked> <span class="swatch camp"></span>Lager und Biwaks</label>
+        <label><input class="category-filter" type="checkbox" value="Bereitstellung" checked> <span class="swatch staging"></span>Bereitstellung und Aufmarsch</label>
+        <label><input class="category-filter" type="checkbox" value="Handelsstraße" checked> <span class="swatch route"></span>Handelsstraßen</label>
+        <label><input class="category-filter" type="checkbox" value="Altweg" checked> <span class="swatch oldway"></span>Alt- und Höhenwege</label>
+      </div>
+
+      <div class="panel-section">
+        <h3>Quellensicherheit</h3>
+        <select id="confidenceFilter">
+          <option value="all">Alle Rekonstruktionen</option>
+          <option value="medium">Mindestens mittel</option>
+          <option value="high">Nur hoch</option>
+        </select>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-title-row">
+          <h3>Einzelne Einträge</h3>
+          <button id="toggleAll" class="text-button" type="button">Alle aus</button>
+        </div>
+        <div id="entryList"></div>
+      </div>
+
+      <div class="panel-section note">
+        <strong>Beta-Hinweis</strong>
+        <p>Die Flächen und Weglinien sind historische Arbeitsrekonstruktionen. Sie ersetzen weder amtliche Bodendenkmalkarten noch eine denkmalrechtliche Erlaubnis.</p>
+      </div>
+    </section>
+
+    <div id="statusBar" class="status-bar">Karte bereit. GPS noch nicht aktiviert.</div>
+    <button id="fitButton" class="map-button" type="button" title="Alle Einträge anzeigen">⌂</button>
+  </main>
+
+  <noscript>SpurenAtlas benötigt JavaScript.</noscript>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
