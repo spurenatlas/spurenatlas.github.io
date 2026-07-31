@@ -2,27 +2,24 @@
 
 Historische Wege, Orte und Landschaften – technische Beta.
 
-Die derzeitigen Flächen und Linien sind Arbeitsrekonstruktionen. Vor einer fachlichen Veröffentlichung werden alle Datensätze quellenbezogen überprüft und mit einer Zuverlässigkeitsstufe versehen.
+## Beta 4 – Schutz, Legende und Mellrichstadt
 
+- eigener Reiter **Schutz** mit dem amtlichen, täglich aktualisierten WMS-Layer `bodendenkmalO` des Bayerischen Landesamtes für Denkmalpflege
+- Deckkraftregler und Schnellfokus auf den Raum Mellrichstadt
+- eigener Reiter **Legende** mit einheitlichen Kategorie-Farben und Linienarten für die Quellensicherheit
+- regional verfeinerte Straßen im Raum Mellrichstadt:
+  - Straße Würzburg–Sachsen über Bad Neustadt, Mellrichstadt, Eußenhausen, Henneberg und Meiningen
+  - ältere Weinstraße über Mühlfeld, Schwickershausen und Ritschenhausen nach Obermaßfeld
+  - vorsichtiger Korridor der Hohen Straße Richtung Walldorf / Schmalkalden
+- Quellenlinks direkt in den Karten-Popups
 
-## Beta 2
+### Amtliche Bodendenkmäler
 
-GPS verfolgt den Standort weiter, ohne die Karte nach jeder Messung automatisch zurückzusetzen. Erneuter Druck auf „Zentrieren“ führt zum Standort zurück.
+Dienst: `https://geoservices.bayern.de/od/wms/gdi/v1/denkmal`  
+Layer: `bodendenkmalO`
 
-## Beta 3
+Die Ebene dient als Schutz- und Vermeidungsinformation. Sie ersetzt weder die tagesaktuelle Prüfung im Bayerischen Denkmal-Atlas noch die Beachtung des Bayerischen Denkmalschutzgesetzes.
 
-- Suchfeld für Orte, Epochen und Kategorien
-- Epochenfilter
-- Klick auf das Fadenkreuz eines Eintrags springt direkt zur Fläche
-- Ebenen- und Eintragsauswahl wird auf dem Gerät gespeichert
-- Sichtbarkeitszähler im Ebenenmenü
+### Historische Grundlage Mellrichstadt
 
-## Beta 3.1 – historische Straßentrassen
-
-- Handelsstraßen werden nicht mehr als wenige Luftliniensegmente dargestellt.
-- Via Regia westlich und östlich von Erfurt folgt nun einem feineren historischen Korridor.
-- Die östliche Haupttrasse wurde von der unzutreffenden Führung über Jena auf Buttelstedt–Eckartsberga–Naumburg korrigiert.
-- Die Nürnberger Geleitstraße folgt im Thüringer Wald dem Korridor Ilmenau–Manebach–Frauenwald–Schleusingen–Eisfeld–Coburg.
-- Die Linien bleiben Arbeitsrekonstruktionen; lokale Paralleltrassen und zeitliche Verlagerungen sind möglich.
-
-Grundlagen: VIA REGIA-Dokumentation, UNESCO-Biosphärenreservat Thüringer Wald und Viabundus.
+Jochen Heinke: *Alte Verkehrswege im Gebiet der Rhön und zwischen Main und Werra*, insbesondere die Abschnitte zur Straße von Würzburg nach Sachsen und ihren Verzweigungen in Mellrichstadt.

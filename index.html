@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#17211c">
-  <meta name="description" content="SpurenAtlas – historische Wege, Schlachtfelder und Landschaften.">
-  <title>SpurenAtlas · Beta 3.1</title>
+  <meta name="description" content="SpurenAtlas – historische Wege, Schlachtfelder, Bodendenkmäler und Landschaften.">
+  <title>SpurenAtlas · Beta 4</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <header class="app-header">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">⌖</span>
       <div>
-        <h1>SpurenAtlas <span>Beta 3.1</span></h1>
-        <p>Historische Wege, Orte und Landschaften</p>
+        <h1>SpurenAtlas <span>Beta 4</span></h1>
+        <p>Historische Wege, Orte und Schutzflächen</p>
       </div>
     </div>
     <div class="header-actions">
@@ -32,67 +32,125 @@
     <section id="layersPanel" class="panel" aria-label="Karteneinstellungen" aria-hidden="true">
       <div class="panel-head">
         <div>
-          <h2>Ebenen</h2>
-          <p>Blende nur ein, was du gerade brauchst.</p>
+          <h2>SpurenAtlas</h2>
+          <p>Ebenen, Schutzinformationen und Kartenlegende.</p>
         </div>
-        <button id="closePanel" class="icon-button" type="button" aria-label="Ebenen schließen">×</button>
+        <button id="closePanel" class="icon-button" type="button" aria-label="Fenster schließen">×</button>
       </div>
 
-
-      <div class="panel-section first-section">
-        <label class="search-label" for="entrySearch">Suche</label>
-        <input id="entrySearch" class="search-input" type="search" placeholder="Ort, Epoche oder Kategorie …" autocomplete="off">
+      <div class="panel-tabs" role="tablist" aria-label="Kartenbereiche">
+        <button class="panel-tab is-active" type="button" role="tab" aria-selected="true" data-panel-tab="layers">🗺 Ebenen</button>
+        <button class="panel-tab" type="button" role="tab" aria-selected="false" data-panel-tab="protection">🛡 Schutz</button>
+        <button class="panel-tab" type="button" role="tab" aria-selected="false" data-panel-tab="legend">◒ Legende</button>
       </div>
 
-      <div class="panel-section">
-        <h3>Kategorien</h3>
-        <label><input class="category-filter" type="checkbox" value="Schlachtfeld" checked> <span class="swatch battle"></span>Schlachtfelder</label>
-        <label><input class="category-filter" type="checkbox" value="Lager" checked> <span class="swatch camp"></span>Lager und Biwaks</label>
-        <label><input class="category-filter" type="checkbox" value="Bereitstellung" checked> <span class="swatch staging"></span>Bereitstellung und Aufmarsch</label>
-        <label><input class="category-filter" type="checkbox" value="Handelsstraße" checked> <span class="swatch route"></span>Handelsstraßen</label>
-        <label><input class="category-filter" type="checkbox" value="Altweg" checked> <span class="swatch oldway"></span>Alt- und Höhenwege</label>
-      </div>
+      <div class="tab-pane is-active" data-tab-pane="layers">
+        <div class="panel-section first-section">
+          <label class="search-label" for="entrySearch">Suche</label>
+          <input id="entrySearch" class="search-input" type="search" placeholder="Ort, Epoche oder Kategorie …" autocomplete="off">
+        </div>
 
-      <div class="panel-section">
-        <h3>Quellensicherheit</h3>
-        <select id="confidenceFilter">
-          <option value="all">Alle Rekonstruktionen</option>
-          <option value="medium">Mindestens mittel</option>
-          <option value="high">Nur hoch</option>
-        </select>
-      </div>
+        <div class="panel-section">
+          <h3>Kategorien</h3>
+          <label><input class="category-filter" type="checkbox" value="Schlachtfeld" checked> <span class="swatch battle"></span>Schlachtfelder</label>
+          <label><input class="category-filter" type="checkbox" value="Lager" checked> <span class="swatch camp"></span>Lager und Biwaks</label>
+          <label><input class="category-filter" type="checkbox" value="Bereitstellung" checked> <span class="swatch staging"></span>Bereitstellung und Aufmarsch</label>
+          <label><input class="category-filter" type="checkbox" value="Handelsstraße" checked> <span class="swatch route"></span>Handels- und Geleitstraßen</label>
+          <label><input class="category-filter" type="checkbox" value="Altweg" checked> <span class="swatch oldway"></span>Alt- und Höhenwege</label>
+        </div>
 
-      <div class="panel-section">
-        <h3>Epoche</h3>
-        <select id="epochFilter">
-          <option value="all">Alle Epochen</option>
-        </select>
-      </div>
+        <div class="panel-section">
+          <h3>Quellensicherheit</h3>
+          <select id="confidenceFilter">
+            <option value="all">Alle Rekonstruktionen</option>
+            <option value="medium">Mindestens mittel</option>
+            <option value="high">Nur hoch</option>
+          </select>
+        </div>
 
-      <div class="panel-section">
-        <div class="section-title-row">
-          <div>
-            <h3>Einzelne Einträge</h3>
-            <div id="entryCount" class="entry-count"></div>
+        <div class="panel-section">
+          <h3>Epoche</h3>
+          <select id="epochFilter">
+            <option value="all">Alle Epochen</option>
+          </select>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-title-row">
+            <div>
+              <h3>Einzelne Einträge</h3>
+              <div id="entryCount" class="entry-count"></div>
+            </div>
+            <button id="toggleAll" class="text-button" type="button">Alle aus</button>
           </div>
-          <button id="toggleAll" class="text-button" type="button">Alle aus</button>
+          <div id="entryList"></div>
         </div>
-        <div id="entryList"></div>
+
+        <div class="panel-section note">
+          <strong>Historische Arbeitsdaten</strong>
+          <p>Weglinien und Gefechtsflächen sind quellenbezogene Rekonstruktionen. Vormoderne Straßen bestanden oft aus mehreren, zeitlich wechselnden Fahrspuren.</p>
+        </div>
       </div>
 
-      <div class="panel-section note">
-        <strong>Beta-Hinweis</strong>
-        <p>Die Flächen und Weglinien sind historische Arbeitsrekonstruktionen. Sie ersetzen weder amtliche Bodendenkmalkarten noch eine denkmalrechtliche Erlaubnis.</p>
+      <div class="tab-pane" data-tab-pane="protection">
+        <div class="panel-section first-section protection-card">
+          <h3>Bodendenkmäler Bayern</h3>
+          <label class="switch-row">
+            <input id="monumentsToggle" type="checkbox">
+            <span><strong>Amtliche Bodendenkmäler einblenden</strong><small>Bayerisches Landesamt für Denkmalpflege, täglich aktualisierter WMS</small></span>
+          </label>
+          <label class="range-label" for="monumentsOpacity">Deckkraft <output id="monumentsOpacityValue">75 %</output></label>
+          <input id="monumentsOpacity" class="range-input" type="range" min="25" max="100" step="5" value="75">
+          <p class="layer-hint">Die Schutzflächen werden ab Kartenstufe 9 sichtbar und live vom amtlichen Dienst geladen. Sie sind deshalb nicht offline verfügbar.</p>
+          <div class="action-stack">
+            <button id="focusMellrichstadt" class="wide-button" type="button">⌖ Raum Mellrichstadt anzeigen</button>
+            <a class="wide-button link-button" href="https://geoportal.bayern.de/denkmalatlas/" target="_blank" rel="noopener">Amtlichen Denkmal-Atlas öffnen ↗</a>
+          </div>
+        </div>
+
+        <div class="panel-section warning-note">
+          <strong>Wichtig für Sondengänger</strong>
+          <p>Diese Ebene dient als Schutz- und Vermeidungsinformation, nicht als Suchhilfe. Der Bayerische Denkmal-Atlas ist nicht vollständig; auch außerhalb kartierter Flächen können Bodendenkmäler liegen. Auf Bodendenkmälern ist der Einsatz von Metallsonden grundsätzlich verboten. Das BLfD empfiehlt außerdem, den Nähebereich bekannter Bodendenkmäler großräumig von der Suche auszusparen.</p>
+        </div>
+      </div>
+
+      <div class="tab-pane" data-tab-pane="legend">
+        <div class="panel-section first-section">
+          <h3>Farben</h3>
+          <div class="legend-list">
+            <div class="legend-row"><span class="legend-fill battle"></span><span><strong>Rot</strong><small>Schlachtfelder und Gefechtsräume</small></span></div>
+            <div class="legend-row"><span class="legend-fill camp"></span><span><strong>Blau</strong><small>Lager und Biwaks</small></span></div>
+            <div class="legend-row"><span class="legend-fill staging"></span><span><strong>Türkis</strong><small>Bereitstellung und Aufmarsch</small></span></div>
+            <div class="legend-row"><span class="legend-line route"></span><span><strong>Gold</strong><small>Handels-, Geleit- und Pilgerstraßen</small></span></div>
+            <div class="legend-row"><span class="legend-line oldway"></span><span><strong>Grün</strong><small>Alt-, Höhen- und Grenzwege</small></span></div>
+            <div class="legend-row"><span class="legend-official"></span><span><strong>Amtliche Darstellung</strong><small>Bodendenkmäler erscheinen im Originalstil des BLfD</small></span></div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h3>Linien und Grenzen</h3>
+          <div class="legend-list">
+            <div class="legend-row"><span class="confidence-line solid"></span><span><strong>Durchgezogen</strong><small>gut belegt</small></span></div>
+            <div class="legend-row"><span class="confidence-line dashed"></span><span><strong>Gestrichelt</strong><small>wahrscheinlicher Verlauf</small></span></div>
+            <div class="legend-row"><span class="confidence-line dotted"></span><span><strong>Gepunktet</strong><small>Arbeitsrekonstruktion / Korridor</small></span></div>
+          </div>
+        </div>
+
+        <div class="panel-section note">
+          <strong>Beta-Hinweis</strong>
+          <p>Die Legende beschreibt unsere Arbeitsdaten. Für die amtliche Bodendenkmal-Ebene gilt ausschließlich die Symbolik des Bayerischen Landesamtes für Denkmalpflege.</p>
+        </div>
       </div>
     </section>
 
     <div id="statusBar" class="status-bar">Karte bereit. GPS noch nicht aktiviert.</div>
+    <button id="legendButton" class="map-button secondary" type="button" title="Legende öffnen" aria-label="Legende öffnen">i</button>
     <button id="fitButton" class="map-button" type="button" title="Alle Einträge anzeigen">⌂</button>
   </main>
 
   <noscript>SpurenAtlas benötigt JavaScript.</noscript>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="data.js?v=31"></script>
-  <script src="app.js?v=3"></script>
+  <script src="data.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

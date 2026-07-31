@@ -1,12 +1,7 @@
-const CACHE = "spurenatlas-shell-v3-1";
+const CACHE = "spurenatlas-shell-v4";
 const APP_SHELL = [
-  "./",
-  "./index.html",
-  "./styles.css",
-  "./data.js",
-  "./app.js",
-  "./manifest.webmanifest",
-  "./icon.svg"
+  "./", "./index.html", "./styles.css", "./data.js", "./app.js",
+  "./manifest.webmanifest", "./icon.svg"
 ];
 
 self.addEventListener("install", event => {
@@ -26,7 +21,6 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
-
   event.respondWith(
     fetch(event.request)
       .then(response => {

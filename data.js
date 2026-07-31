@@ -101,6 +101,59 @@ window.SPURENATLAS_DATA = [
     ]
   },
   {
+    id: "wuerzburg-sachsen-streutal", kind: "line", category: "Handelsstraße",
+    name: "Straße Würzburg–Sachsen – Bad Neustadt / Mellrichstadt / Meiningen",
+    year: "13.–17. Jahrhundert", epoch: "Fernhandel", confidence: 2,
+    color: "#cf8b2a",
+    note: "Regional verfeinerte Arbeitsrekonstruktion. Die historische Hauptverbindung verlief von Bad Neustadt vermutlich im Streutal nach Mellrichstadt; die vorgeschriebene Geleitstraße führte weiter über Eußenhausen und Henneberg nach Meiningen. Zwischen den Orten sind lokale Paralleltrassen möglich.",
+    sourceLabel: "Jochen Heinke: Alte Verkehrswege im Gebiet der Rhön und zwischen Main und Werra",
+    sourceUrl: "https://journals.bibliothek.uni-wuerzburg.de/frl-nf/article/download/8109/8151",
+    coords: [
+      [50.3219,10.2146],[50.3284,10.2198],[50.3351,10.2269],[50.3424,10.2346],
+      [50.3499,10.2419],[50.3574,10.2480],[50.3650,10.2525],[50.3725,10.2548],
+      [50.3793,10.2555],[50.3858,10.2610],[50.3923,10.2684],[50.3986,10.2765],
+      [50.4038,10.2873],[50.4098,10.2907],[50.4163,10.2943],[50.4227,10.2982],
+      [50.4280,10.3025],[50.4349,10.3038],[50.4418,10.3057],[50.4489,10.3090],
+      [50.4564,10.3122],[50.4638,10.3142],[50.4711,10.3161],[50.4787,10.3195],
+      [50.4858,10.3245],[50.4925,10.3324],[50.4993,10.3431],[50.5034,10.3545],
+      [50.5105,10.3652],[50.5180,10.3747],[50.5261,10.3831],[50.5343,10.3908],
+      [50.5420,10.3976],[50.5500,10.4032],[50.5582,10.4086],[50.5678,10.4150]
+    ]
+  },
+  {
+    id: "weinstrasse-mellrichstadt-obermassfeld", kind: "line", category: "Altweg",
+    name: "Weinstraße – Mellrichstadt / Mühlfeld / Schwickershausen / Obermaßfeld",
+    year: "vor 1588/89", epoch: "Altweg", confidence: 2,
+    color: "#2b8b52",
+    note: "Ältere Hochstraßenverbindung von Mellrichstadt über Mühlfeld, Schwickershausen und Ritschenhausen nach Obermaßfeld. Die Route wurde 1588/89 gesperrt; danach wurde eine Ersatzverbindung über Bibra vorgeschrieben. Die Linie folgt dem überlieferten Ortskorridor, nicht einer metergenau belegten Fahrspur.",
+    sourceLabel: "Jochen Heinke: Alte Verkehrswege im Gebiet der Rhön und zwischen Main und Werra",
+    sourceUrl: "https://journals.bibliothek.uni-wuerzburg.de/frl-nf/article/download/8109/8151",
+    coords: [
+      [50.4280,10.3025],[50.4324,10.3105],[50.4372,10.3189],[50.4417,10.3277],
+      [50.4465,10.3368],[50.4508,10.3455],[50.4547,10.3525],[50.4595,10.3589],
+      [50.4641,10.3648],[50.4684,10.3700],[50.4720,10.3743],[50.4766,10.3803],
+      [50.4810,10.3865],[50.4856,10.3932],[50.4900,10.4007],[50.4943,10.4081],
+      [50.4984,10.4158],[50.5027,10.4220],[50.5068,10.4275],[50.5108,10.4314],
+      [50.5150,10.4327],[50.5195,10.4344],[50.5241,10.4365],[50.5285,10.4385]
+    ]
+  },
+  {
+    id: "mellrichstadt-hohe-strasse-korridor", kind: "line", category: "Altweg",
+    name: "Hohe Straße – Mellrichstadt Richtung Walldorf / Schmalkalden",
+    year: "Mittelalter–Frühe Neuzeit", epoch: "Altweg", confidence: 1,
+    color: "#2b8b52",
+    note: "Nur als Korridor dargestellt: Von Mellrichstadt zweigte eine Hohe Straße ab, überschritt bei Walldorf die Werra und setzte sich über Schmalkalden Richtung Gotha fort. Der genaue lokale Verlauf zwischen Mellrichstadt und Walldorf ist bislang nicht metergenau geklärt.",
+    sourceLabel: "Jochen Heinke: Alte Verkehrswege im Gebiet der Rhön und zwischen Main und Werra",
+    sourceUrl: "https://journals.bibliothek.uni-wuerzburg.de/frl-nf/article/download/8109/8151",
+    coords: [
+      [50.4280,10.3025],[50.4390,10.3050],[50.4510,10.3090],[50.4630,10.3130],
+      [50.4750,10.3170],[50.4870,10.3210],[50.4990,10.3260],[50.5110,10.3310],
+      [50.5230,10.3360],[50.5350,10.3420],[50.5470,10.3480],[50.5590,10.3550],
+      [50.5710,10.3620],[50.5830,10.3700],[50.5950,10.3780],[50.6070,10.3850],
+      [50.6155,10.3890]
+    ]
+  },
+  {
     id: "rennsteig", kind: "line", category: "Altweg", name: "Rennsteig – Höhen-, Grenz- und Verkehrsweg", year: "Mittelalter–Neuzeit", epoch: "Altweg", confidence: 3,
     color: "#2b8b52", note: "Historischer Höhen- und Grenzweg; nicht auf allen Abschnitten primär eine Fernhandelsstraße.",
     coords: [[50.857,10.234],[50.841,10.472],[50.784,10.614],[50.706,10.725],[50.616,10.837],[50.511,10.986],[50.462,11.212],[50.418,11.507],[50.405,11.597]]
