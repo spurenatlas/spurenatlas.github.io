@@ -155,7 +155,7 @@ main { position: relative; height: calc(100% - 78px); }
 }
 #achenkirchEntryList .entry:last-child { border-bottom: 0; }
 .border-line { width: 34px; height: 0; border-top-style: solid; border-radius: 4px; }
-.border-line.national { border-top-width: 6px; border-top-color: #171a1c; }
+.border-line.national { border-top-width: 3px; border-top-color: #171a1c; }
 .border-line.state { border-top-width: 2px; border-top-color: #737d86; }
 .leaflet-country-border-pane, .leaflet-state-border-pane { pointer-events: none; }
 @media (max-width: 620px) {

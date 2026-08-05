@@ -31,7 +31,7 @@ Jochen Heinke: *Alte Verkehrswege im Gebiet der Rhön und zwischen Main und Werr
 - Drei großräumige historische Befestigungs- bzw. Gefechtskorridore: Achenpass/Kaiserwacht, Achenwald/Klamm und Achensee-Klause.
 - Salz- und Warenroute vom Inntal über Achensee und Achenpass Richtung Tegernsee.
 - Schematische historische Schiffsroute für den zeitweisen Fuhrwerktransport über den Achensee.
-- Deutsche Staatsgrenze als dicke Linie und Grenzen der Bundesländer als dünne Linien.
+- Deutsche Staatsgrenze als etwas kräftigere Linie und Grenzen der Bundesländer als feine Linien.
 - Verwaltungsgrenzen werden aus amtlichen BKG-Diensten geladen; Darstellung in SpurenAtlas verändert.
 
 Quellen und Hinweise:
@@ -42,3 +42,9 @@ Quellen und Hinweise:
 - © BKG 2025, dl-de/by-2-0; Darstellung in SpurenAtlas verändert.
 
 Die historischen Polygone sind keine parzellenscharfen Denkmalkarten oder gesicherten Schlachtfeldgrenzen, sondern quellenbezogene Arbeitskorridore mit ausgewiesener Zuverlässigkeit.
+
+## Beta 5.1 – feinere Staatsgrenze
+
+- Stärke der deutschen Staatsgrenze von 5,5 auf 3 Pixel reduziert.
+- Ländergrenzen bleiben unverändert fein.
+- Legende und Beschreibung an die zurückhaltendere Darstellung angepasst.

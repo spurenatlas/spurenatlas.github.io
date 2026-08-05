@@ -1,6 +1,6 @@
-const CACHE = "spurenatlas-shell-v5";
+const CACHE = "spurenatlas-shell-v5-1";
 const APP_SHELL = [
-  "./", "./index.html", "./styles.css?v=5", "./data.js?v=5", "./app.js?v=5",
+  "./", "./index.html", "./styles.css?v=51", "./data.js?v=51", "./app.js?v=51",
   "./manifest.webmanifest", "./icon.svg"
 ];
 
