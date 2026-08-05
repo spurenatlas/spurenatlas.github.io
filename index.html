@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#17211c">
   <meta name="description" content="SpurenAtlas – historische Wege, Schlachtfelder, Bodendenkmäler und Landschaften.">
-  <title>SpurenAtlas · Beta 4</title>
+  <title>SpurenAtlas · Beta 5</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="app-header">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">⌖</span>
       <div>
-        <h1>SpurenAtlas <span>Beta 4</span></h1>
+        <h1>SpurenAtlas <span>Beta 5</span></h1>
         <p>Historische Wege, Orte und Schutzflächen</p>
       </div>
     </div>
@@ -40,6 +40,7 @@
 
       <div class="panel-tabs" role="tablist" aria-label="Kartenbereiche">
         <button class="panel-tab is-active" type="button" role="tab" aria-selected="true" data-panel-tab="layers">🗺 Ebenen</button>
+        <button class="panel-tab" type="button" role="tab" aria-selected="false" data-panel-tab="achenkirch">⛰ Achenkirch</button>
         <button class="panel-tab" type="button" role="tab" aria-selected="false" data-panel-tab="protection">🛡 Schutz</button>
         <button class="panel-tab" type="button" role="tab" aria-selected="false" data-panel-tab="legend">◒ Legende</button>
       </div>
@@ -92,6 +93,49 @@
         </div>
       </div>
 
+
+      <div class="tab-pane" data-tab-pane="achenkirch">
+        <div class="panel-section first-section region-card">
+          <h3>Achenkirch / Achensee</h3>
+          <label class="switch-row">
+            <input id="achenkirchToggle" type="checkbox">
+            <span><strong>Regionale Arbeitsdaten einblenden</strong><small>Gefechtsräume, Sperrstellungen und historische Handelswege</small></span>
+          </label>
+          <div class="action-stack">
+            <button id="focusAchenkirch" class="wide-button" type="button">⌖ Raum Achenkirch anzeigen</button>
+          </div>
+          <p class="layer-hint">Der Schaltknopf aktiviert die regionalen Ebenen automatisch. Die Gefechtsflächen sind bewusst als großräumige, unterschiedlich sichere Arbeitsrekonstruktionen dargestellt.</p>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-title-row">
+            <div>
+              <h3>Regionale Einträge</h3>
+              <div id="achenkirchCount" class="entry-count"></div>
+            </div>
+          </div>
+          <div id="achenkirchEntryList"></div>
+        </div>
+
+        <div class="panel-section border-card">
+          <h3>Grenzen</h3>
+          <label class="switch-row">
+            <input id="countryBorderToggle" type="checkbox" checked>
+            <span><strong>Deutsche Staatsgrenze</strong><small>dicke dunkle Linie</small></span>
+          </label>
+          <label class="switch-row">
+            <input id="stateBordersToggle" type="checkbox" checked>
+            <span><strong>Grenzen der Bundesländer</strong><small>dünne graue Linien</small></span>
+          </label>
+          <p id="boundaryStatus" class="layer-hint" aria-live="polite">Amtliche Grenzdaten werden beim ersten Aktivieren geladen.</p>
+        </div>
+
+        <div class="panel-section warning-note">
+          <strong>Historische Genauigkeit</strong>
+          <p>Die Ortschronik belegt drei gestaffelte Befestigungsräume am Achenpass, im Achenwald und am Achensee. Die Polygone zeigen den jeweiligen Landschaftskorridor, nicht parzellenscharfe Kampfplätze.</p>
+        </div>
+      </div>
+
       <div class="tab-pane" data-tab-pane="protection">
         <div class="panel-section first-section protection-card">
           <h3>Bodendenkmäler Bayern</h3>
@@ -133,6 +177,8 @@
             <div class="legend-row"><span class="confidence-line solid"></span><span><strong>Durchgezogen</strong><small>gut belegt</small></span></div>
             <div class="legend-row"><span class="confidence-line dashed"></span><span><strong>Gestrichelt</strong><small>wahrscheinlicher Verlauf</small></span></div>
             <div class="legend-row"><span class="confidence-line dotted"></span><span><strong>Gepunktet</strong><small>Arbeitsrekonstruktion / Korridor</small></span></div>
+            <div class="legend-row"><span class="border-line national"></span><span><strong>Dicke dunkle Linie</strong><small>deutsche Staatsgrenze</small></span></div>
+            <div class="legend-row"><span class="border-line state"></span><span><strong>Dünne graue Linie</strong><small>Grenzen der Bundesländer</small></span></div>
           </div>
         </div>
 
@@ -150,7 +196,7 @@
 
   <noscript>SpurenAtlas benötigt JavaScript.</noscript>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="data.js?v=4"></script>
-  <script src="app.js?v=4"></script>
+  <script src="data.js?v=5"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>

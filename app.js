@@ -7,8 +7,10 @@
     return;
   }
 
-  const STORAGE_KEY = "spurenatlas-settings-v4";
+  const STORAGE_KEY = "spurenatlas-settings-v5";
   const data = window.SPURENATLAS_DATA || [];
+  const standardData = data.filter(item => item.region !== "achenkirch");
+  const achenkirchData = data.filter(item => item.region === "achenkirch");
   const CATEGORY_COLORS = {
     "Schlachtfeld": "#9f2d2d",
     "Lager": "#2864ad",
@@ -23,6 +25,13 @@
     maxZoom: 19,
     attribution: "© OpenStreetMap-Mitwirkende"
   }).addTo(map);
+
+  map.createPane("stateBorderPane");
+  map.getPane("stateBorderPane").style.zIndex = 355;
+  map.getPane("stateBorderPane").style.pointerEvents = "none";
+  map.createPane("countryBorderPane");
+  map.getPane("countryBorderPane").style.zIndex = 365;
+  map.getPane("countryBorderPane").style.pointerEvents = "none";
 
   const monumentsLayer = L.tileLayer.wms(
     "https://geoservices.bayern.de/od/wms/gdi/v1/denkmal",
@@ -47,19 +56,29 @@
   let watchId = null;
   let centerOnNextFix = false;
   let activePanelTab = "layers";
+  let countryBorderLayer = null;
+  let stateBordersLayer = null;
+  let boundaryAttributionAdded = false;
+  const boundaryLoadPromises = {};
 
   const statusBar = document.getElementById("statusBar");
   const locateButton = document.getElementById("locateButton");
   const panel = document.getElementById("layersPanel");
   const entryList = document.getElementById("entryList");
+  const achenkirchEntryList = document.getElementById("achenkirchEntryList");
   const entrySearch = document.getElementById("entrySearch");
   const entryCount = document.getElementById("entryCount");
+  const achenkirchCount = document.getElementById("achenkirchCount");
   const epochFilter = document.getElementById("epochFilter");
   const confidenceFilter = document.getElementById("confidenceFilter");
   const toggleAllButton = document.getElementById("toggleAll");
   const monumentsToggle = document.getElementById("monumentsToggle");
   const monumentsOpacity = document.getElementById("monumentsOpacity");
   const monumentsOpacityValue = document.getElementById("monumentsOpacityValue");
+  const achenkirchToggle = document.getElementById("achenkirchToggle");
+  const countryBorderToggle = document.getElementById("countryBorderToggle");
+  const stateBordersToggle = document.getElementById("stateBordersToggle");
+  const boundaryStatus = document.getElementById("boundaryStatus");
 
   const confidenceLabel = level =>
     ({ 1: "rekonstruiert", 2: "wahrscheinlich", 3: "gut belegt" }[level] || "offen");
@@ -86,7 +105,7 @@
       ${source}`;
   };
 
-  [...new Set(data.map(item => item.epoch))]
+  [...new Set(standardData.map(item => item.epoch))]
     .sort((a, b) => a.localeCompare(b, "de"))
     .forEach(epoch => {
       const option = document.createElement("option");
@@ -115,20 +134,22 @@
     layer.bindPopup(popupHtml(item), { maxWidth: 340 });
     layerById.set(item.id, layer);
 
+    const regional = item.region === "achenkirch";
     const row = document.createElement("div");
     row.className = "entry";
     row.dataset.id = item.id;
     row.dataset.search = `${item.name} ${item.year} ${item.epoch} ${item.category}`.toLowerCase();
     row.innerHTML = `
       <label>
-        <input class="entry-filter" type="checkbox" value="${item.id}" checked>
+        <input class="${regional ? "achenkirch-entry-filter" : "entry-filter"}" type="checkbox" value="${item.id}" checked>
         <span>
           <span class="entry-title">${item.name}</span>
           <span class="entry-meta">${item.year} · ${item.category} · ${confidenceLabel(item.confidence)}</span>
         </span>
       </label>
       <button class="entry-focus" type="button" data-focus="${item.id}" aria-label="${item.name} auf der Karte anzeigen">⌖</button>`;
-    entryList.appendChild(row);
+
+    (regional ? achenkirchEntryList : entryList).appendChild(row);
     rowById.set(item.id, row);
   });
 
@@ -136,8 +157,11 @@
     [...document.querySelectorAll(".category-filter:checked")]
       .some(box => box.value === category);
 
-  const entryEnabled = id =>
+  const standardEntryEnabled = id =>
     document.querySelector(`.entry-filter[value="${CSS.escape(id)}"]`)?.checked ?? true;
+
+  const regionalEntryEnabled = id =>
+    document.querySelector(`.achenkirch-entry-filter[value="${CSS.escape(id)}"]`)?.checked ?? true;
 
   const confidenceEnabled = level => {
     const filter = confidenceFilter.value;
@@ -150,8 +174,11 @@
     epochFilter.value === "all" || epochFilter.value === epoch;
 
   function itemVisible(item) {
+    if (item.region === "achenkirch") {
+      return achenkirchToggle.checked && regionalEntryEnabled(item.id);
+    }
     return categoryEnabled(item.category) &&
-      entryEnabled(item.id) &&
+      standardEntryEnabled(item.id) &&
       confidenceEnabled(item.confidence) &&
       epochEnabled(item.epoch);
   }
@@ -169,6 +196,13 @@
           [...document.querySelectorAll(".entry-filter")]
             .map(box => [box.value, box.checked])
         ),
+        achenkirchEntries: Object.fromEntries(
+          [...document.querySelectorAll(".achenkirch-entry-filter")]
+            .map(box => [box.value, box.checked])
+        ),
+        achenkirchEnabled: achenkirchToggle.checked,
+        countryBorder: countryBorderToggle.checked,
+        stateBorders: stateBordersToggle.checked,
         monuments: monumentsToggle.checked,
         monumentsOpacity: Number(monumentsOpacity.value),
         activePanelTab
@@ -198,20 +232,37 @@
           box.checked = settings.entries[box.value];
         }
       });
+      document.querySelectorAll(".achenkirch-entry-filter").forEach(box => {
+        if (typeof settings.achenkirchEntries?.[box.value] === "boolean") {
+          box.checked = settings.achenkirchEntries[box.value];
+        }
+      });
+      if (typeof settings.achenkirchEnabled === "boolean") achenkirchToggle.checked = settings.achenkirchEnabled;
+      if (typeof settings.countryBorder === "boolean") countryBorderToggle.checked = settings.countryBorder;
+      if (typeof settings.stateBorders === "boolean") stateBordersToggle.checked = settings.stateBorders;
       if (typeof settings.monuments === "boolean") monumentsToggle.checked = settings.monuments;
       if (Number.isFinite(settings.monumentsOpacity)) monumentsOpacity.value = settings.monumentsOpacity;
-      if (["layers", "protection", "legend"].includes(settings.activePanelTab)) {
+      if (["layers", "achenkirch", "protection", "legend"].includes(settings.activePanelTab)) {
         activePanelTab = settings.activePanelTab;
       }
     } catch (_) {}
   }
 
   function updateEntryCount() {
-    const visibleCount = data.filter(item => map.hasLayer(layerById.get(item.id))).length;
-    const searchCount = [...rowById.values()].filter(row => !row.classList.contains("is-search-hidden")).length;
+    const visibleCount = standardData.filter(item => map.hasLayer(layerById.get(item.id))).length;
+    const searchCount = [...rowById.entries()]
+      .filter(([id, row]) => standardData.some(item => item.id === id) && !row.classList.contains("is-search-hidden"))
+      .length;
     entryCount.textContent = entrySearch.value.trim()
       ? `${searchCount} Suchtreffer · ${visibleCount} auf Karte`
-      : `${visibleCount} von ${data.length} auf Karte`;
+      : `${visibleCount} von ${standardData.length} auf Karte`;
+  }
+
+  function updateAchenkirchCount() {
+    const visibleCount = achenkirchData.filter(item => map.hasLayer(layerById.get(item.id))).length;
+    achenkirchCount.textContent = achenkirchToggle.checked
+      ? `${visibleCount} von ${achenkirchData.length} auf Karte`
+      : `${achenkirchData.length} Einträge vorbereitet · derzeit ausgeblendet`;
   }
 
   function updateToggleAllLabel() {
@@ -246,6 +297,7 @@
       if (!show && map.hasLayer(layer)) map.removeLayer(layer);
     });
     updateEntryCount();
+    updateAchenkirchCount();
     updateToggleAllLabel();
     if (save) saveSettings();
   }
@@ -291,14 +343,20 @@
     const layer = layerById.get(id);
     if (!item || !layer) return;
 
-    const itemBox = document.querySelector(`.entry-filter[value="${CSS.escape(id)}"]`);
-    const categoryBox = [...document.querySelectorAll(".category-filter")]
-      .find(box => box.value === item.category);
+    if (item.region === "achenkirch") {
+      achenkirchToggle.checked = true;
+      const regionalBox = document.querySelector(`.achenkirch-entry-filter[value="${CSS.escape(id)}"]`);
+      if (regionalBox) regionalBox.checked = true;
+    } else {
+      const itemBox = document.querySelector(`.entry-filter[value="${CSS.escape(id)}"]`);
+      const categoryBox = [...document.querySelectorAll(".category-filter")]
+        .find(box => box.value === item.category);
+      if (itemBox) itemBox.checked = true;
+      if (categoryBox) categoryBox.checked = true;
+      confidenceFilter.value = "all";
+      epochFilter.value = "all";
+    }
 
-    if (itemBox) itemBox.checked = true;
-    if (categoryBox) categoryBox.checked = true;
-    confidenceFilter.value = "all";
-    epochFilter.value = "all";
     refreshLayers();
     closePanel();
 
@@ -313,22 +371,135 @@
 
   function applySearch() {
     const query = entrySearch.value.trim().toLowerCase();
-    rowById.forEach(row => {
-      row.classList.toggle("is-search-hidden", Boolean(query) && !row.dataset.search.includes(query));
+    standardData.forEach(item => {
+      const row = rowById.get(item.id);
+      row?.classList.toggle("is-search-hidden", Boolean(query) && !row.dataset.search.includes(query));
     });
     updateEntryCount();
   }
 
-  document.querySelectorAll(".category-filter, .entry-filter, #confidenceFilter, #epochFilter")
+  function boundaryUrls(kind) {
+    const typeName = kind === "country" ? "vg250_sta" : "vg250_lan";
+    const names = [typeName, `vg250:${typeName}`];
+    const urls = [];
+    names.forEach(name => {
+      const params = new URLSearchParams({
+        service: "WFS",
+        version: "2.0.0",
+        request: "GetFeature",
+        TYPENAMES: name,
+        outputFormat: "json",
+        srsName: "urn:ogc:def:crs:EPSG::4326"
+      });
+      urls.push(`https://sgx.geodatenzentrum.de/wfs_vg250?${params}`);
+    });
+    if (kind === "states") {
+      urls.push("https://tigis.bkg.bund.de/hosting/rest/services/Basemap_light/MapServer/3/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson");
+    } else {
+      urls.push("https://services-eu1.arcgis.com/U09msXRZoxesNntH/ArcGIS/rest/services/VG250_STA_Deutschland/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson");
+    }
+    return urls;
+  }
+
+  function validGeoJson(json) {
+    return json && json.type === "FeatureCollection" && Array.isArray(json.features) && json.features.length > 0;
+  }
+
+  async function fetchBoundaryGeoJson(kind) {
+    let lastError = null;
+    for (const url of boundaryUrls(kind)) {
+      try {
+        const controller = new AbortController();
+        const timer = window.setTimeout(() => controller.abort(), 18000);
+        const response = await fetch(url, { mode: "cors", signal: controller.signal });
+        window.clearTimeout(timer);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const json = await response.json();
+        if (!validGeoJson(json)) throw new Error("keine GeoJSON-Features");
+        return json;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    throw lastError || new Error("Grenzdaten nicht verfügbar");
+  }
+
+  function addBoundaryAttribution() {
+    if (boundaryAttributionAdded) return;
+    map.attributionControl.addAttribution(
+      '<a href="https://www.bkg.bund.de" target="_blank" rel="noopener">© BKG 2025</a> · <a href="https://www.govdata.de/dl-de/by-2-0" target="_blank" rel="noopener">dl-de/by-2-0</a> · Darstellung in SpurenAtlas verändert'
+    );
+    boundaryAttributionAdded = true;
+  }
+
+  async function ensureBoundaryLayer(kind) {
+    const existing = kind === "country" ? countryBorderLayer : stateBordersLayer;
+    if (existing) return existing;
+    if (boundaryLoadPromises[kind]) return boundaryLoadPromises[kind];
+
+    boundaryLoadPromises[kind] = (async () => {
+      boundaryStatus.textContent = "Amtliche Verwaltungsgrenzen werden geladen …";
+      const json = await fetchBoundaryGeoJson(kind);
+      const layer = L.geoJSON(json, {
+        pane: kind === "country" ? "countryBorderPane" : "stateBorderPane",
+        interactive: false,
+        style: kind === "country"
+          ? { color: "#16191b", weight: 5.5, opacity: 0.88, fillOpacity: 0, lineCap: "round", lineJoin: "round" }
+          : { color: "#6d7780", weight: 1.35, opacity: 0.78, fillOpacity: 0, lineCap: "round", lineJoin: "round" }
+      });
+      if (kind === "country") countryBorderLayer = layer;
+      else stateBordersLayer = layer;
+      addBoundaryAttribution();
+      return layer;
+    })();
+
+    try {
+      return await boundaryLoadPromises[kind];
+    } finally {
+      boundaryLoadPromises[kind] = null;
+    }
+  }
+
+  async function refreshBorders({ save = true } = {}) {
+    const requested = [];
+    if (countryBorderToggle.checked) requested.push("country");
+    if (stateBordersToggle.checked) requested.push("states");
+
+    try {
+      for (const kind of requested) {
+        const layer = await ensureBoundaryLayer(kind);
+        if (!map.hasLayer(layer)) layer.addTo(map);
+      }
+      if (!countryBorderToggle.checked && countryBorderLayer && map.hasLayer(countryBorderLayer)) {
+        map.removeLayer(countryBorderLayer);
+      }
+      if (!stateBordersToggle.checked && stateBordersLayer && map.hasLayer(stateBordersLayer)) {
+        map.removeLayer(stateBordersLayer);
+      }
+      boundaryStatus.textContent = requested.length
+        ? "Amtliche Grenzen aktiv: Staatsgrenze dick, Ländergrenzen dünn."
+        : "Amtliche Verwaltungsgrenzen ausgeblendet.";
+    } catch (_) {
+      boundaryStatus.textContent = "Grenzdaten konnten gerade nicht geladen werden. Bitte später erneut einschalten.";
+    }
+    if (save) saveSettings();
+  }
+
+  document.querySelectorAll(".category-filter, .entry-filter, .achenkirch-entry-filter, #confidenceFilter, #epochFilter")
     .forEach(el => el.addEventListener("change", () => refreshLayers()));
 
   entrySearch.addEventListener("input", applySearch);
   monumentsToggle.addEventListener("change", () => refreshMonuments());
   monumentsOpacity.addEventListener("input", () => refreshMonuments());
+  achenkirchToggle.addEventListener("change", () => refreshLayers());
+  countryBorderToggle.addEventListener("change", () => refreshBorders());
+  stateBordersToggle.addEventListener("change", () => refreshBorders());
 
-  entryList.addEventListener("click", event => {
-    const button = event.target.closest("[data-focus]");
-    if (button) focusItem(button.dataset.focus);
+  [entryList, achenkirchEntryList].forEach(list => {
+    list.addEventListener("click", event => {
+      const button = event.target.closest("[data-focus]");
+      if (button) focusItem(button.dataset.focus);
+    });
   });
 
   document.querySelectorAll("[data-panel-tab]").forEach(button => {
@@ -346,6 +517,14 @@
     statusBar.textContent = monumentsToggle.checked
       ? "Raum Mellrichstadt – amtliche Bodendenkmäler und historische Arbeitsdaten."
       : "Raum Mellrichstadt. Unter Schutz kannst du die amtlichen Bodendenkmäler aktivieren.";
+  });
+
+  document.getElementById("focusAchenkirch").addEventListener("click", () => {
+    achenkirchToggle.checked = true;
+    refreshLayers();
+    map.setView([47.535, 11.700], 11, { animate: true });
+    closePanel();
+    statusBar.textContent = "Raum Achenkirch – Gefechtsräume, Sperrstellungen und Handelswege aktiviert.";
   });
 
   toggleAllButton.addEventListener("click", () => {
@@ -453,6 +632,7 @@
   applySearch();
   setPanelTab(activePanelTab);
   fitVisible();
+  refreshBorders({ save: false });
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () =>

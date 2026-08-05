@@ -158,4 +158,60 @@ window.SPURENATLAS_DATA = [
     color: "#2b8b52", note: "Historischer Höhen- und Grenzweg; nicht auf allen Abschnitten primär eine Fernhandelsstraße.",
     coords: [[50.857,10.234],[50.841,10.472],[50.784,10.614],[50.706,10.725],[50.616,10.837],[50.511,10.986],[50.462,11.212],[50.418,11.507],[50.405,11.597]]
   }
+,
+  {
+    id: "achenpass-kaiserwacht-1809", kind: "polygon", category: "Schlachtfeld", region: "achenkirch",
+    name: "Achenpass / Kaiserwacht – Befestigungs- und Gefechtsraum", year: "1809", epoch: "Tiroler Aufstand", confidence: 2,
+    color: "#9f2d2d",
+    note: "Breit gefasster Arbeitsraum um Achenpass und Kaiserwacht. Die Ortschronik nennt die befestigte Schanze am Pass und ihre erfolgreiche Verteidigung 1809; die dargestellte Fläche ist keine metergenaue Schlachtfeldgrenze.",
+    sourceLabel: "Gemeinde Achenkirch: Ortschronik",
+    sourceUrl: "https://www.achenkirch.gv.at/Dorfleben/Wissenswertes/Chronik/Gemeindechronik",
+    coords: [[47.5790,11.6120],[47.5900,11.6060],[47.6025,11.6160],[47.6070,11.6350],[47.5990,11.6540],[47.5860,11.6580],[47.5755,11.6420]]
+  },
+  {
+    id: "achenwald-klamm-1809", kind: "polygon", category: "Schlachtfeld", region: "achenkirch",
+    name: "Achenwald / Klamm – Sperrstellungen und kleinere Schießereien", year: "1809", epoch: "Tiroler Aufstand", confidence: 1,
+    color: "#9f2d2d",
+    note: "Vorsichtige Korridorfläche für die zweite Verteidigungslinie im Achenwald und kleinere Schießereien zwischen Patrouillen und Landesverteidigern. Exakte Kampfstellen und Flächengrenzen sind nicht sicher überliefert.",
+    sourceLabel: "Heimatblätter Schwaz Nr. 65: 1809 – das Schreckensjahr für Schwaz",
+    sourceUrl: "https://dev.rabalderhaus.at/wp-content/uploads/2019/06/heimatblaetter_nr.65.pdf",
+    coords: [[47.5480,11.6600],[47.5605,11.6510],[47.5745,11.6550],[47.5845,11.6700],[47.5780,11.6900],[47.5630,11.6990],[47.5485,11.6880]]
+  },
+  {
+    id: "achensee-klause-mehrerbruecken-1809", kind: "polygon", category: "Schlachtfeld", region: "achenkirch",
+    name: "Achensee-Klause / Mehrerbrücken – südliche Sperrlinie", year: "1809", epoch: "Tiroler Aufstand", confidence: 1,
+    color: "#9f2d2d",
+    note: "Schematische Arbeitsfläche der historischen Klause am Achensee. Die Gemeindechronik nennt dort einen Turm bzw. eine Klause; weitere Überlieferungen beschreiben eine Sperranlage zwischen See und Berg. Die genaue Position ist nur angenähert.",
+    sourceLabel: "Gemeinde Achenkirch: Ortschronik",
+    sourceUrl: "https://www.achenkirch.gv.at/Dorfleben/Wissenswertes/Chronik/Gemeindechronik",
+    coords: [[47.4930,11.6940],[47.5010,11.6910],[47.5085,11.6980],[47.5070,11.7100],[47.4990,11.7150],[47.4915,11.7060]]
+  },
+  {
+    id: "salzstrasse-achensee-achenpass", kind: "line", category: "Handelsstraße", region: "achenkirch",
+    name: "Salzstraße Hall–Achensee–Achenpass–Tegernsee", year: "Spätmittelalter–19. Jh.", epoch: "Fernhandel", confidence: 2,
+    color: "#cf8b2a",
+    note: "Trassennahe Arbeitsrekonstruktion des überregionalen Salz- und Warenkorridors vom Inntal über den Achensee und Achenpass nach Bayern. Der Fahrweg am Achensee ist seit dem späten 15. Jahrhundert belegt; örtlich bestanden wechselnde Fahrspuren und Ausweichrouten.",
+    sourceLabel: "Gemeinde Achenkirch / Geschichte der Achenseestraße",
+    sourceUrl: "https://www.achenkirch.gv.at/Dorfleben/Wissenswertes/Chronik/Gemeindechronik",
+    coords: [
+      [47.3976,11.8069],[47.4055,11.8005],[47.4145,11.7890],[47.4235,11.7710],
+      [47.4310,11.7545],[47.4390,11.7415],[47.4485,11.7310],[47.4585,11.7215],
+      [47.4690,11.7130],[47.4800,11.7065],[47.4910,11.7015],[47.5010,11.7010],
+      [47.5100,11.7050],[47.5205,11.7075],[47.5315,11.7070],[47.5418,11.7025],
+      [47.5515,11.6940],[47.5605,11.6830],[47.5695,11.6705],[47.5790,11.6560],
+      [47.5880,11.6435],[47.5927,11.6337],[47.6015,11.6395],[47.6100,11.6500],
+      [47.6200,11.6650],[47.6300,11.6840],[47.6395,11.7030],[47.6495,11.7200],
+      [47.6610,11.7330],[47.6750,11.7410],[47.6900,11.7460],[47.7060,11.7540]
+    ]
+  },
+  {
+    id: "achensee-fuhrwerk-schiff", kind: "line", category: "Handelsstraße", region: "achenkirch",
+    name: "Achensee – historischer Schiffstransport für Fuhrwerke", year: "bis Mitte 19. Jh.", epoch: "Fernhandel", confidence: 2,
+    color: "#cf8b2a",
+    note: "Schematische Wasserroute: Wegen des schwierigen Fahrwegs am steilen Seeufer wurden Fuhrwerke zeitweise per Schiff zwischen Süd- und Nordufer transportiert. Die Anlegestellen und der genaue Kurs wechselten.",
+    sourceLabel: "Geschichte der Achenseestraße",
+    sourceUrl: "https://de.wikipedia.org/wiki/Achenseestra%C3%9Fe",
+    coords: [[47.4265,11.7310],[47.4380,11.7235],[47.4505,11.7155],[47.4635,11.7085],[47.4765,11.7030],[47.4895,11.6995],[47.5000,11.7000]]
+  }
+
 ];
