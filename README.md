@@ -48,3 +48,9 @@ Die historischen Polygone sind keine parzellenscharfen Denkmalkarten oder gesich
 - Stärke der deutschen Staatsgrenze von 5,5 auf 3 Pixel reduziert.
 - Ländergrenzen bleiben unverändert fein.
 - Legende und Beschreibung an die zurückhaltendere Darstellung angepasst.
+
+## Beta 5.2 – Staatsgrenze noch feiner
+
+- Deutsche Staatsgrenze und Bundesländergrenzen verwenden nun dieselbe Linienbreite.
+- Die Staatsgrenze bleibt durch Schwarz deutlich erkennbar.
+- Bundesländergrenzen bleiben grau und damit optisch zurückhaltender.

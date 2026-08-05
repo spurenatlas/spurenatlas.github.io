@@ -444,7 +444,7 @@
         pane: kind === "country" ? "countryBorderPane" : "stateBorderPane",
         interactive: false,
         style: kind === "country"
-          ? { color: "#16191b", weight: 3.0, opacity: 0.84, fillOpacity: 0, lineCap: "round", lineJoin: "round" }
+          ? { color: "#16191b", weight: 1.35, opacity: 0.88, fillOpacity: 0, lineCap: "round", lineJoin: "round" }
           : { color: "#6d7780", weight: 1.35, opacity: 0.78, fillOpacity: 0, lineCap: "round", lineJoin: "round" }
       });
       if (kind === "country") countryBorderLayer = layer;
@@ -477,7 +477,7 @@
         map.removeLayer(stateBordersLayer);
       }
       boundaryStatus.textContent = requested.length
-        ? "Amtliche Grenzen aktiv: Staatsgrenze kräftiger, Ländergrenzen fein."
+        ? "Amtliche Grenzen aktiv: gleiche Linienstärke, Staatsgrenze schwarz und Ländergrenzen grau."
         : "Amtliche Verwaltungsgrenzen ausgeblendet.";
     } catch (_) {
       boundaryStatus.textContent = "Grenzdaten konnten gerade nicht geladen werden. Bitte später erneut einschalten.";
